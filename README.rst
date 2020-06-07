@@ -10,23 +10,23 @@ Python scripts.
 
 Workflow input are source Darwin Core archives obtained from GBIF.
 
-For the time being, tje following occurrence datasets are processed:
+For the time being, the following occurrence datasets are processed:
 
 :nhrs-nrm: GBIF-Sweden, Entomological Collections (NHRS),
 		   Swedish Museum of Natural History (NRM). 
-		   **DOI:** `10.15468/fpzyjx <https://doi.org/10.15468/fpzyjx>`_
+		   DOI:&npsp;`10.15468/fpzyjx <https://doi.org/10.15468/fpzyjx>`_
 
 :s-fbo: GBIF-Sweden, Phanerogamic Botanical Collections (S).
-	    **DOI:** `10.15468/yo3mmu <https://doi.org/10.15468/yo3mmu>`_
+	    DOI:&nbsp;`10.15468/yo3mmu <https://doi.org/10.15468/yo3mmu>`_
 
 
 Prerequisites
 -------------
 
 * Python 3.7
-* The Python libraries `pandas <https://pandas.pydata.org>`_,
-`spaCy <https://spacy.io>`_, and
-`Snakemake <https://snakemake.readthedocs.io/en/stable/>`_
+* The Python libraries `pandas <https://pandas.pydata.org>`_, 
+  `spaCy <https://spacy.io>`_, and
+  `Snakemake <https://snakemake.readthedocs.io/en/stable/>`_
 
 An easy way to get Python working on your computer is to install the
 free `Anaconda distribution <http://anaconda.com/download)>`_.
@@ -35,21 +35,21 @@ You can install the libraries with the following command:
 
 .. code-block:: bash
 
-    pip pandas snakemake spacy
+    pip install pandas snakemake spacy
 
 
 Input files
 -----------
 
 Input files should be placed at the following location:
-`./data/raw/{dataset}/occurrence.txt`.
+``./data/raw/{dataset}/occurrence.txt``.
 
 
 Output files
 ------------
 
 After executing the workflow, output files should be found in
-`./data/processed/`.
+``./data/processed/``.
 
 
 Running the workflow
@@ -63,7 +63,7 @@ You can run workflow by entering the following on the command-line
     Snakemake --cores 4
 
 
-The file `./config.yaml` determines which datasets to include, and
+The file ``./config.yaml`` determines which datasets to include, and
 how they are processed.
 
 The workflow has been executed under Python 3.7 with the following
