@@ -1,0 +1,56 @@
+s-fbo:  # our name of the dataset
+  columns:  # columns to include from the Darwin Core archive, with pandas dtype
+    institutionCode: str
+    collectionCode: str
+    catalogNumber: str
+    occurrenceID: str
+    continent: str
+    country: str
+    countryCode: str
+    locality: str
+    stateProvince: str
+    verbatimLocality: str
+    higherGeography: str
+    decimalLatitude: str
+    decimalLongitude: str
+  distinctColumnSet:  # drop records with duplicated content in these columns 
+    - decimalLatitude
+    - decimalLongitude
+    - verbatimLocality
+    - locality
+  tokenExtraction:  # specifications of how to extract location tokens
+    sourceColumn: verbatimLocality  # Darwin Core field to extract location tokens from
+    nerModelDir: "models/ner-model"  # directory with the spaCy NER model
+    longStrSep: ", "  # separator when concatenating all tokens
+    shortStrSep: ", "  # separator when concatenating short string with tokens
+  peliasName: locTokensStrLong  # can be a Darwin Core field or concatenated tokens
+  locationDisplayLabel: locTokensStrShort # can be a Darwin Core field or concatenated tokens
+
+nhrs-nrm:
+  columns:
+    institutionCode: str
+    collectionCode: str
+    catalogNumber: str
+    occurrenceID: str
+    occurrenceRemarks: str
+    continent: str
+    country: str
+    countryCode: str
+    locality: str
+    stateProvince: str
+    verbatimLocality: str
+    higherGeography: str
+    decimalLatitude: str
+    decimalLongitude: str
+  distinctColumnSet:
+    - decimalLatitude
+    - decimalLongitude
+    - locality
+    - occurrenceRemarks
+  tokenExtraction:
+    sourceColumn: occurrenceRemarks
+    nerModelDir: 'models/ner-model'
+    longStrSep: ", "
+    shortStrSep: ", "
+  peliasName: locTokensStrLong
+  locationDisplayLabel: locTokensStrShort
