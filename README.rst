@@ -14,10 +14,10 @@ For the time being, the following occurrence datasets are processed:
 
 :nhrs-nrm: GBIF-Sweden, Entomological Collections (NHRS),
 		   Swedish Museum of Natural History (NRM). 
-		   DOI:&npsp;`10.15468/fpzyjx <https://doi.org/10.15468/fpzyjx>`_
+		   DOI: |nbsp| `10.15468/fpzyjx <https://doi.org/10.15468/fpzyjx>`_
 
 :s-fbo: GBIF-Sweden, Phanerogamic Botanical Collections (S).
-	    DOI:&nbsp;`10.15468/yo3mmu <https://doi.org/10.15468/yo3mmu>`_
+	    DOI: |nbsp| `10.15468/yo3mmu <https://doi.org/10.15468/yo3mmu>`_
 
 
 Prerequisites
@@ -130,3 +130,6 @@ Author
 
 Markus Englund
 
+
+.. |nbsp| unicode:: 0xA0 
+   :trim:
