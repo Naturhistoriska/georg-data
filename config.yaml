@@ -1,5 +1,5 @@
-s-fbo:  # our name of the dataset
-  columns:  # columns to include from the Darwin Core archive, with pandas dtype
+s-fbo:  # name used for the dataset
+  columns:  # Darwin Core columns to include, with corresponding pandas dtypes
     institutionCode: str
     collectionCode: str
     catalogNumber: str
@@ -13,18 +13,18 @@ s-fbo:  # our name of the dataset
     higherGeography: str
     decimalLatitude: str
     decimalLongitude: str
-  distinctColumnSet:  # drop records with duplicated content in these columns 
+  distinctColumnSet:  # drop duplicate records for the subset of these columns
     - decimalLatitude
     - decimalLongitude
     - verbatimLocality
     - locality
-  tokenExtraction:  # specifications of how to extract location tokens
-    sourceColumn: verbatimLocality  # Darwin Core field to extract location tokens from
+  tokenExtraction:  # specifies location tokens extraction
+    sourceColumn: verbatimLocality  # Darwin Core field
     nerModelDir: "models/ner-model"  # directory with the spaCy NER model
-    longStrSep: ", "  # separator when concatenating all tokens
-    shortStrSep: ", "  # separator when concatenating short string with tokens
-  peliasName: locTokensStrLong  # can be a Darwin Core field or concatenated tokens
-  locationDisplayLabel: locTokensStrShort # can be a Darwin Core field or concatenated tokens
+    longStrSep: ", "  # separator for concatenating all tokens
+    shortStrSep: ", "  # separator for concatenating string with a few tokens
+  peliasName: locTokensStrLong  # Darwin Core field or concatenated tokens
+  locationDisplayLabel: locTokensStrShort # Darwin Core field or concatenated tokens
 
 nhrs-nrm:
   columns:
