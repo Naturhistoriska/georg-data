@@ -1,10 +1,10 @@
 Preparation of GBIF-data for Georg
 ==================================
 
-This repository contains code for processing GBIF data before importing
-it into `Georg <http://github.com/naturhistoriska/georg>`_ which is
-built on top of the geocoder `Pelias <https://pelias.io>`_. The data
-processing is carried out with the workflow management system
+This repository contains code for processing `GBIF <https://gbif.org>`_
+data before importing it into `Georg <http://github.com/naturhistoriska/georg>`_
+which is built on top of the geocoder `Pelias <https://pelias.io>`_.
+The data processing is carried out with the workflow management system
 `Snakemake <https://snakemake.readthedocs.io/en/stable/>`_ and a few
 Python scripts.
 
@@ -65,6 +65,10 @@ You can run workflow by entering the following on the command-line
 
 The file ``./config.yaml`` determines which datasets to include, and
 how they are processed.
+
+Named Entity Recognition (NER) is used to extract place names from
+texts. A language model that has been trained on transcripts of
+mainly Swedish labels is included in this repository.
 
 The workflow has been executed under Python 3.7 with the following
 Python packages installed:
