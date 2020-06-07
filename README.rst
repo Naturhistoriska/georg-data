@@ -60,7 +60,7 @@ You can run workflow by entering the following on the command-line
 
 .. code-block:: bash
 
-    Snakemake --cores 4
+    snakemake --cores 4
 
 
 The file ``./config.yaml`` determines which datasets to include, and
