@@ -1,16 +1,17 @@
-Preparation of GBIF-data for Georg
+Preparation of GBIF data for Georg
 ==================================
 
-This repository contains code for processing `GBIF <https://gbif.org>`_
-data before importing it into `Georg <http://github.com/naturhistoriska/georg>`_
-which is built on top of the geocoder `Pelias <https://pelias.io>`_.
+This repository contains code for processing GBIF data before importing
+it into `Georg <http://github.com/naturhistoriska/georg>`_,
+which is a georeferencing tool built on top of `Pelias <https://pelias.io>`_.
 The data processing is carried out with the workflow management system
 `Snakemake <https://snakemake.readthedocs.io/en/stable/>`_ and a few
 Python scripts.
 
-Workflow input are source Darwin Core archives obtained from GBIF.
+Workflow input are source Darwin Core archives obtained from
+`GBIF <https://gbif.org>`_.
 
-For the time being, the following occurrence datasets are processed:
+For the time being, two occurrence datasets are processed:
 
 :nhrs-nrm: GBIF-Sweden, Entomological Collections (NHRS),
 		   Swedish Museum of Natural History (NRM). 
@@ -29,7 +30,7 @@ Prerequisites
   `Snakemake <https://snakemake.readthedocs.io/en/stable/>`_
 
 An easy way to get Python working on your computer is to install the
-free `Anaconda distribution <http://anaconda.com/download)>`_.
+free `Anaconda distribution <http://anaconda.com/download>`_.
 
 You can install the libraries with the following command:
 
@@ -48,8 +49,8 @@ Input files should be placed at the following location:
 Output files
 ------------
 
-After executing the workflow, output files should be found in
-``./data/processed/``.
+After executing the workflow, you should be able to find the output
+files under ``./data/processed/``.
 
 
 Running the workflow
@@ -64,7 +65,7 @@ You can run workflow by entering the following on the command-line
 
 
 The file ``./config.yaml`` determines which datasets to include, and
-how they are processed.
+how the datasets are processed.
 
 Named Entity Recognition (NER) is used to extract place names from
 texts. A language model that has been trained on transcripts of
@@ -119,7 +120,6 @@ Python packages installed:
 	wasabi==0.6.0
 	wrapt==1.12.1
 	zipp==3.1.0
-
 
 
 License
