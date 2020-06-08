@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Use Named Entity Recognition (NER) to extract location
+names (tokens) from texts.
+"""
+
 import pandas as pd
 import numpy as np
 import spacy

@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Script for combining and formatting data so that they can be
+imported into Georg. Since Georg is currently built on top of
+Pelias, this means that the format can be read by the Pelias
+csv-importer <https://github.com/pelias/csv-importer>.
+"""
+
 import pandas as pd
 
 from ast import literal_eval
@@ -9,7 +16,6 @@ DISPLAY_LABEL_COL = snakemake.params.displayLabel
 NAME_COL = snakemake.params.name
 
 required_columns = list(set([DISPLAY_LABEL_COL, NAME_COL]))
-
 
 # Load data
 dwc_frame = pd.read_table(

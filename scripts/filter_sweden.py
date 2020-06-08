@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+Select specific columns, filter Swedish records and remove
+duplicate entries.
+"""
+
 import pandas as pd
 
 
