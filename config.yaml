@@ -52,9 +52,9 @@ nhrs-nrm:
     - locality
     - occurrenceRemarks
   tokenExtraction:
-    sourceColumn: occurrenceRemarks
+    sourceColumn: locality
     nerModelDir: 'models/ner-model'
     longStrSep: ", "
     shortStrSep: ", "
-  peliasName: locTokensStrLong
+  peliasName: locality
   locationDisplayLabel: locTokensStrShort
