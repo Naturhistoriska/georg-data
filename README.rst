@@ -2,8 +2,8 @@ Preparation of GBIF data for Georg
 ==================================
 
 This repository contains code for processing GBIF data before importing
-it into `Georg <http://github.com/naturhistoriska/georg>`_,
-which is a georeferencing tool built on top of `Pelias <https://pelias.io>`_.
+them into `Georg <http://github.com/naturhistoriska/georg>`_,
+a georeferencing tool built on top of `Pelias <https://pelias.io>`_.
 The data processing is carried out with the workflow management system
 `Snakemake <https://snakemake.readthedocs.io/en/stable/>`_ and a few
 Python scripts.

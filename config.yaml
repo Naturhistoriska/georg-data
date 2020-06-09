@@ -1,5 +1,5 @@
 s-fbo:  # name used for the dataset
-  columns:  # Darwin Core columns to include, with corresponding pandas dtypes
+  columns:  # Darwin Core fields to include and corresponding pandas dtypes
     institutionCode: str
     collectionCode: str
     catalogNumber: str
