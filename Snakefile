@@ -1,14 +1,32 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
+import zipfile
+
 import snakemake
+from snakemake.remote.HTTP import RemoteProvider as HTTPRemoteProvider
 
 
 configfile: 'config.yaml'
 
+HTTP = HTTPRemoteProvider()
+
 
 rule all:
     input: expand('data/processed/{dataset}.csv', dataset=config.keys())
+
+
+rule download_data:
+    input:
+        lambda w: HTTP.remote(
+            'www.gbif.se/ipt/archive.do?r=' + w.dataset,
+            insecure=True, keep_local=True)
+    output: 'data/raw/{dataset}/occurrence.txt'
+    run:
+        z = zipfile.ZipFile(input[0])
+        d = os.path.dirname(output[0])
+        z.extract('occurrence.txt', path=d)
 
 
 rule filter_sweden:
