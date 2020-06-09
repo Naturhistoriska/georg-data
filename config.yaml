@@ -13,6 +13,8 @@ s-fbo:  # name used for the dataset
     higherGeography: str
     decimalLatitude: str
     decimalLongitude: str
+    # geodeticDatum: str
+    # coordinateUncertaintyInMeters: str
   distinctColumnSet:  # drop duplicate records for the subset of these columns
     - decimalLatitude
     - decimalLongitude
@@ -42,6 +44,8 @@ nhrs-nrm:
     higherGeography: str
     decimalLatitude: str
     decimalLongitude: str
+    geodeticDatum: str
+    coordinateUncertaintyInMeters: str
   distinctColumnSet:
     - decimalLatitude
     - decimalLongitude
