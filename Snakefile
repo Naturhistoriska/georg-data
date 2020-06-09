@@ -21,7 +21,7 @@ rule download_data:
     input:
         lambda w: HTTP.remote(
             'www.gbif.se/ipt/archive.do?r=' + w.dataset,
-            insecure=True, keep_local=True)
+            insecure=True, keep_local=False)
     output: 'data/raw/{dataset}/occurrence.txt'
     run:
         z = zipfile.ZipFile(input[0])
