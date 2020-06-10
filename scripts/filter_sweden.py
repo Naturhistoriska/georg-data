@@ -7,6 +7,7 @@ records and remove duplicate entries.
 """
 
 import pandas as pd
+import numpy as np
 
 
 DTYPES = snakemake.params.dtypes
@@ -31,8 +32,12 @@ if 'geodeticDatum' in frame.columns:
     geodetic_datum = frame.geodeticDatum.str.lower().apply(remove_whitespace)
     include_mask = (
         include_mask &
-        (geodetic_datum.isnull() | geodetic_datum.str.contains('wgs84'))
-    )
+        (geodetic_datum.isnull() | geodetic_datum.str.contains('wgs84')))
+else:
+    frame['geodeticDatum'] = np.nan
+
+if not 'coordinateUncertaintyInMeters' in frame.columns:
+    frame['coordinateUncertaintyInMeters'] = np.nan
 
 frame_filtered = (
     frame[include_mask]
