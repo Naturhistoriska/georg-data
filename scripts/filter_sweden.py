@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 """
-Select specific columns, filter Swedish records and remove
-duplicate entries.
+Select specific columns, filter Swedish records, remove non-WGS84
+records and remove duplicate entries.
 """
 
 import pandas as pd
@@ -13,14 +13,32 @@ DTYPES = snakemake.params.dtypes
 DISTINCT_COLUMN_SET = snakemake.params.distinct_column_set
 
 
+def remove_whitespace(s):
+    """Remove whitespace in string"""
+    try:
+        s = "".join(s.split())
+    except AttributeError:
+        pass
+    return s
+
+
 frame = pd.read_table(
     snakemake.input[0], usecols=list(DTYPES.keys()), dtype=DTYPES)
 
+geodetic_datum = frame.geodeticDatum.str.lower.apply(remove_whitespace)
 
-frame_sweden = (
-    frame[frame.country.eq('Sweden')]
+include_mask = frame.country.eq('Sweden')
+
+if 'geodeticDatum' in frame.columns:
+    included_mask = (
+        include_mask &
+        (geodetic_datum.isnull() | geodetic_datum.str.contains('wgs84'))
+    )
+
+frame_filtered = (
+    frame[include_mask]
     .dropna(subset=['decimalLatitude', 'decimalLongitude'])
     .drop_duplicates(DISTINCT_COLUMN_SET)
 )
 
-frame_sweden.to_csv(snakemake.output[0], sep='\t', index=False)
+frame_filtered.to_csv(snakemake.output[0], sep='\t', index=False)
