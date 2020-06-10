@@ -1,9 +1,9 @@
 s-fbo:  # name used for the dataset
   columns:  # Darwin Core fields to include and corresponding pandas dtypes
-    institutionCode: str
-    collectionCode: str
+    institutionCode: str  # required
+    collectionCode: str  # required
     catalogNumber: str
-    occurrenceID: str
+    occurrenceID: str  # required
     continent: str
     country: str
     countryCode: str
@@ -11,8 +11,8 @@ s-fbo:  # name used for the dataset
     stateProvince: str
     verbatimLocality: str
     higherGeography: str
-    decimalLatitude: str
-    decimalLongitude: str
+    decimalLatitude: str  # required
+    decimalLongitude: str  # required
     # geodeticDatum: str
     # coordinateUncertaintyInMeters: str
   distinctColumnSet:  # drop duplicate records for the subset of these columns
@@ -21,11 +21,11 @@ s-fbo:  # name used for the dataset
     - verbatimLocality
     - locality
   tokensExtraction:  # specifies location tokens extraction
-    verbatimTokens:  # custom name to use for token fields (must not be the same as a Darwin Core field)
+    verbatimTokens:  # custom name to use for extracted tokens (must not be a Darwin Core field name)
         source: verbatimLocality  # Darwin Core source field for the tokens
         nerModelDir: 'models/ner-model'  # directory with a spaCy NER model
-        longStrSep: ", "  # separator to use when concatenating string with all tokens
-        shortStrSep: ", " # separator to use when concatenating string with some of the tokens
+        longStrSep: ", "  # separator to use when concatenating all tokens in a string
+        shortStrSep: ", " # separator to use when concatenating some of the tokens in a string
   peliasName: verbatimTokensStrLong  # Darwin Core field or concatenated tokens
   locationDisplayLabel: verbatimTokensStrShort # Darwin Core field or concatenated tokens
 
