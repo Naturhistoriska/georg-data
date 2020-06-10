@@ -61,14 +61,7 @@ rule extract_loc_tokens:
     input: 'data/interim/filtered/{dataset}.tsv'
     output: 'data/interim/tokens/{dataset}.tsv'
     params:
-        ner_dir = (
-            lambda w: config[w.dataset]['tokenExtraction']['nerModelDir']),
-        source_column = (
-            lambda w: config[w.dataset]['tokenExtraction']['sourceColumn']),
-        long_str_sep = (
-            lambda w: config[w.dataset]['tokenExtraction']['longStrSep']),
-        short_str_sep = (
-            lambda w: config[w.dataset]['tokenExtraction']['shortStrSep'])
+        extraction_config = (lambda w: config[w.dataset]['tokensExtraction'])
     script: 'scripts/extract_loc_tokens.py'
 
 
@@ -80,6 +73,8 @@ rule prepare_pelias_csv:
         'data/processed/{dataset}.csv'
     params:
         dwc_dtypes = (lambda w: config[w.dataset]['columns']),
+        tokens_cols = lambda w:
+            list(config[w.dataset]['tokensExtraction'].keys()),
         name = (lambda w: config[w.dataset]['peliasName']),
         displayLabel = (lambda w: config[w.dataset]['locationDisplayLabel'])
     script: 'scripts/prepare_pelias_csv.py'
