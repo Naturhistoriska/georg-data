@@ -25,11 +25,10 @@ def remove_whitespace(s):
 frame = pd.read_table(
     snakemake.input[0], usecols=list(DTYPES.keys()), dtype=DTYPES)
 
-geodetic_datum = frame.geodeticDatum.str.lower().apply(remove_whitespace)
-
 include_mask = frame.country.eq('Sweden')
 
 if 'geodeticDatum' in frame.columns:
+    geodetic_datum = frame.geodeticDatum.str.lower().apply(remove_whitespace)
     include_mask = (
         include_mask &
         (geodetic_datum.isnull() | geodetic_datum.str.contains('wgs84'))
