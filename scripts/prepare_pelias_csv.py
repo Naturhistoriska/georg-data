@@ -20,17 +20,20 @@ required_columns = list(set([DISPLAY_LABEL_COL, NAME_COL]))
 
 converters = dict()
 all_tokens_cols = list()
+tokens_dtypes = dict()
 for c in TOKENS_COLS:
     converters[c] = literal_eval
     all_tokens_cols.append(c)
     all_tokens_cols.append(c + 'StrLong')
     all_tokens_cols.append(c + 'StrShort')
+    tokens_dtypes[c + 'StrLong'] = str
+    tokens_dtypes[c + 'StrShort'] = str
 
 # Load data
 dwc_frame = pd.read_table(
     snakemake.input[0], dtype=snakemake.params.dwc_dtypes)
 tokens_frame = pd.read_table(
-    snakemake.input[1], converters=converters, dtype=str)
+    snakemake.input[1], converters=converters, dtype=tokens_dtypes)
 
 frame = dwc_frame.merge(
     tokens_frame, how='left', on='catalogNumber'
