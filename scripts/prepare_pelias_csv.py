@@ -35,9 +35,9 @@ dwc_frame = pd.read_table(
 tokens_frame = pd.read_table(
     snakemake.input[1], converters=converters, dtype=dtypes)
 
-frame = dwc_frame.merge(
-    tokens_frame, how='left', on='catalogNumber'
-).dropna(subset=required_columns)
+frame = (
+    dwc_frame.merge(tokens_frame, how='left', on='occurrenceID')
+    .dropna(subset=required_columns))
 
 # ADDENDUM JSON GEORG
 addendum_georg = frame[all_tokens_cols].copy()
