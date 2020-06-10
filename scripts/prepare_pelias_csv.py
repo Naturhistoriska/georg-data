@@ -4,8 +4,8 @@
 """
 Script for combining and formatting data so that they can be
 imported into Georg. Since Georg is currently built on top of
-Pelias, this means that the format can be read by the Pelias
-csv-importer <https://github.com/pelias/csv-importer>.
+Pelias, this means that the data can be read by the Pelias
+csv-importer, see <https://github.com/pelias/csv-importer>.
 """
 
 import pandas as pd

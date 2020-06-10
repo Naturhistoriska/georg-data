@@ -3,7 +3,7 @@
 
 """
 Use Named Entity Recognition (NER) to extract location
-names (tokens) from texts.
+names (tokens) from text columns.
 """
 
 import pandas as pd
