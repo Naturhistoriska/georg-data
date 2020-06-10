@@ -20,13 +20,14 @@ s-fbo:  # name used for the dataset
     - decimalLongitude
     - verbatimLocality
     - locality
-  tokenExtraction:  # specifies location tokens extraction
-    sourceColumn: verbatimLocality  # Darwin Core field
-    nerModelDir: "models/ner-model"  # directory with the spaCy NER model
-    longStrSep: ", "  # separator for concatenating all tokens
-    shortStrSep: ", "  # separator for concatenating string with a few tokens
-  peliasName: locTokensStrLong  # Darwin Core field or concatenated tokens
-  locationDisplayLabel: locTokensStrShort # Darwin Core field or concatenated tokens
+  tokensExtraction:  # specifies location tokens extraction
+    verbatimTokens:  # custom name to use for token fields (must not be the same as a Darwin Core field)
+        source: verbatimLocality  # Darwin Core source field for the tokens
+        nerModelDir: 'models/ner-model'  # directory with a spaCy NER model
+        longStrSep: ", "  # separator to use when concatenating string with all tokens
+        shortStrSep: ", " # separator to use when concatenating string with some of the tokens
+  peliasName: verbatimTokensStrLong  # Darwin Core field or concatenated tokens
+  locationDisplayLabel: verbatimTokensStrShort # Darwin Core field or concatenated tokens
 
 nhrs-nrm:
   columns:
@@ -51,10 +52,16 @@ nhrs-nrm:
     - decimalLongitude
     - locality
     - occurrenceRemarks
-  tokenExtraction:
-    sourceColumn: locality
-    nerModelDir: 'models/ner-model'
-    longStrSep: ", "
-    shortStrSep: ", "
+  tokensExtraction:
+    verbatimTokens:
+        source: occurrenceRemarks
+        nerModelDir: 'models/ner-model'
+        longStrSep: ", "
+        shortStrSep: ", "
+    interpretedTokens:
+        source: locality
+        nerModelDir: 'models/ner-model'
+        longStrSep: ", "
+        shortStrSep: ", "
   peliasName: locality
-  locationDisplayLabel: locTokensStrShort
+  locationDisplayLabel: interpretedTokensStrShort
