@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import xml.etree.ElementTree as ET
 import zipfile
 
 import snakemake
@@ -14,7 +15,9 @@ HTTP = HTTPRemoteProvider()
 
 
 rule all:
-    input: expand('data/processed/{dataset}.csv', dataset=config.keys())
+    input:
+        expand('data/processed/{dataset}.csv', dataset=config.keys()),
+        'data/processed/datasets.tsv'
 
 
 rule download_data:
@@ -22,11 +25,26 @@ rule download_data:
         lambda w: HTTP.remote(
             'www.gbif.se/ipt/archive.do?r=' + w.dataset,
             insecure=True, keep_local=False)
-    output: 'data/raw/{dataset}/occurrence.txt'
+    output:
+        'data/raw/{dataset}/occurrence.txt',
+        'data/raw/{dataset}/eml.xml',
     run:
         z = zipfile.ZipFile(input[0])
         d = os.path.dirname(output[0])
         z.extract('occurrence.txt', path=d)
+        z.extract('eml.xml', path=d)
+
+
+rule parse_dataset_info:
+    input: 'data/raw/{dataset}/eml.xml'
+    output: 'data/interim/datasets/{dataset}.tsv'
+    run:
+        tree = ET.parse(input[0])
+        root = tree.getroot()
+        (dataset_id, version) = root.attrib['packageId'].split('/')
+        with open(output[0], 'w') as f:
+            f.write(
+                wildcards.dataset + '\t' + dataset_id + '\t' + version + '\n')
 
 
 rule filter_sweden:
@@ -65,3 +83,9 @@ rule prepare_pelias_csv:
         name = (lambda w: config[w.dataset]['peliasName']),
         displayLabel = (lambda w: config[w.dataset]['locationDisplayLabel'])
     script: 'scripts/prepare_pelias_csv.py'
+
+
+rule combine_dataset_metadata:
+    input: expand('data/interim/datasets/{dataset}.tsv', dataset=config.keys())
+    output: 'data/processed/datasets.tsv'
+    shell: 'cat data/interim/datasets/*.tsv > {output[0]}'
