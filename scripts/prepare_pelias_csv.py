@@ -4,8 +4,8 @@
 """
 Script for combining and formatting data so that they can be
 imported into Georg. Since Georg is currently built on top of
-Pelias, this means that the format can be read by the Pelias
-csv-importer <https://github.com/pelias/csv-importer>.
+Pelias, this means that the data can be read by the Pelias
+csv-importer, see <https://github.com/pelias/csv-importer>.
 """
 
 import pandas as pd
@@ -14,23 +14,31 @@ from ast import literal_eval
 
 DISPLAY_LABEL_COL = snakemake.params.displayLabel
 NAME_COL = snakemake.params.name
+TOKENS_COLS = snakemake.params.tokens_cols
 
 required_columns = list(set([DISPLAY_LABEL_COL, NAME_COL]))
+
+converters = dict()
+all_tokens_cols = list()
+for c in TOKENS_COLS:
+    converters[c] = literal_eval
+    all_tokens_cols.append(c)
+    all_tokens_cols.append(c + 'StrLong')
+    all_tokens_cols.append(c + 'StrShort')
 
 # Load data
 dwc_frame = pd.read_table(
     snakemake.input[0], dtype=snakemake.params.dwc_dtypes)
 tokens_frame = pd.read_table(
-    snakemake.input[1], converters={'locTokens': literal_eval})
+    snakemake.input[1], converters=converters, dtype=str)
 
 frame = dwc_frame.merge(
     tokens_frame, how='left', on='catalogNumber'
 ).dropna(subset=required_columns)
 
 # ADDENDUM JSON GEORG
-addendum_georg = pd.DataFrame(index=frame.index)
+addendum_georg = frame[all_tokens_cols].copy()
 addendum_georg['locationDisplayLabel'] = frame[DISPLAY_LABEL_COL]
-addendum_georg['locTokens'] = frame.locTokens
 
 addendum_json_georg = addendum_georg.apply(
     lambda x: x.to_json(orient='columns', force_ascii=False), axis=1)
