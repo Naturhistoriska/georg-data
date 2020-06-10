@@ -62,10 +62,10 @@ def tokens_to_strings(series, sep='', tail=None):
 source_columns = [v['source'] for _, v in CONFIG.items()]
 
 frame = pd.read_table(
-    snakemake.input[0], usecols=['catalogNumber'] + source_columns, dtype=str
+    snakemake.input[0], usecols=['occurrenceID'] + source_columns, dtype=str
 ).dropna(subset=source_columns, how='all')
 
-tokens_frame = pd.DataFrame({'catalogNumber': frame.catalogNumber})
+tokens_frame = pd.DataFrame({'occurrenceID': frame.occurrenceID})
 
 for k, v in CONFIG.items():
 
