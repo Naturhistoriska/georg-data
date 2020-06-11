@@ -57,4 +57,5 @@ docs/_build/
 .snakemake
 
 # Data files
-data/
+gbif/data/
+virtual-herbarium/data
