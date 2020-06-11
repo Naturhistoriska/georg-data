@@ -74,8 +74,8 @@ command-line (adjust the number of CPU cores to fit your environment):
     snakemake --cores 4
 
 
-The file ``./config.yaml`` in the ``gbif/`` subdirectory determines which
-datasets to include, and how the included datasets are processed.
+The file ``./gbif/config.yaml`` determines which datasets to include,
+and how the included datasets are processed.
 
 Named Entity Recognition (NER) is used to extract place names from
 texts in the GBIF pipeline. A language model that has been trained on
