@@ -41,7 +41,6 @@ nhrs-nrm:
     countryCode: str
     locality: str
     stateProvince: str
-    verbatimLocality: str
     higherGeography: str
     decimalLatitude: str
     decimalLongitude: str
