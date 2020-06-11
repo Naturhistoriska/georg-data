@@ -1,17 +1,20 @@
-Preparation of GBIF data for Georg
-==================================
+Preparation of data for Georg
+=============================
 
-This repository contains code for processing GBIF data before importing
+This repository contains code for processing datasets before importing
 them into `Georg <http://github.com/naturhistoriska/georg>`_,
 a georeferencing tool built on top of `Pelias <https://pelias.io>`_.
 The data processing is carried out with the workflow management system
 `Snakemake <https://snakemake.readthedocs.io/en/stable/>`_ and a few
 Python scripts.
 
-Workflow input are source Darwin Core archives obtained from
-`GBIF <https://gbif.org>`_.
+There are currently two different data pipelines: one for
+`GBIF Sweden datasets <http://gbif.se/ipt>`_ and one for
+`Sweden's virtual herbarium <https://github.com/mossnisse/Virtuella-Herbariet>`_.
 
-For the time being, two occurrence datasets are processed:
+For the GBIF workflow, we use Darwin Core archives obtained from
+`<http://gbif.se/ipt/>`_. For the time being, two occurrence datasets are
+downloaded and processed:
 
 :nhrs-nrm: GBIF-Sweden, Entomological Collections (NHRS),
 		   Swedish Museum of Natural History (NRM). 
@@ -19,6 +22,13 @@ For the time being, two occurrence datasets are processed:
 
 :s-fbo: GBIF-Sweden, Phanerogamic Botanical Collections (S).
 	    DOI: |nbsp| `10.15468/yo3mmu <https://doi.org/10.15468/yo3mmu>`_
+
+
+From Sweden's Virtual Herbarium we use one dataset for
+`socknar <https://en.wikipedia.org/wiki/Socken>`_ (socken in singular) in SQL format.
+Before processing the dataset, it is exported into a single TSV file. The source data can
+be obtained from:
+`<https://github.com/mossnisse/Virtuella-Herbariet/blob/master/SQL/samhall_district.sql>`_.
 
 
 Prerequisites
@@ -43,35 +53,35 @@ Input files
 -----------
 
 Input files should be placed at the following location:
-``./data/raw/{dataset}/occurrence.txt``.
+``./gbif/data/raw/{dataset}/occurrence.txt`` or ``./virtual-herbarium/data/raw/``.
 
 
 Output files
 ------------
 
 After executing the workflow, you should be able to find the output
-files under ``./data/processed/``.
+files under ``./gbif/data/processed/`` or ``./virtual-herbarium/data/processed/``
 
 
-Running the workflow
---------------------
+Running the workflows
+---------------------
 
-You can run workflow by entering the following on the command-line
-(adjust the number of CPU cores to fit your environment):
+Navigate to the relevant subdirectory and enter the following on the
+command-line (adjust the number of CPU cores to fit your environment):
 
 .. code-block:: bash
 
     snakemake --cores 4
 
 
-The file ``./config.yaml`` determines which datasets to include, and
-how the datasets are processed.
+The file ``./config.yaml`` in the ``gbif/`` subdirectory determines which
+datasets to include, and how the included datasets are processed.
 
 Named Entity Recognition (NER) is used to extract place names from
-texts. A language model that has been trained on transcripts of
-mainly Swedish labels is included in this repository.
+texts in the GBIF pipeline. A language model that has been trained on
+transcripts of mainly Swedish labels is included in this repository.
 
-The workflow has been executed under Python 3.7 with the following
+The two workflows has been executed under Python 3.7 with the following
 Python packages installed:
 
 .. code-block::
