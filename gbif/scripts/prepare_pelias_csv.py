@@ -31,7 +31,7 @@ for c in TOKENS_COLS:
 
 # Load data
 gbif = pd.read_table(
-    snakemake.input[0], dtype=snakemake.params.dwc_dtypes)
+    snakemake.input[0], dtype=snakemake.params.gbif_dtypes)
 tokens_frame = pd.read_table(
     snakemake.input[1], converters=converters, dtype=tokens_dtypes)
 

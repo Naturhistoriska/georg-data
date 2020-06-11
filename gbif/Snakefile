@@ -72,7 +72,7 @@ rule prepare_pelias_csv:
     output:
         'data/processed/{dataset}.csv'
     params:
-        dwc_dtypes = (lambda w: config[w.dataset]['columns']),
+        gbif_dtypes = (lambda w: config[w.dataset]['columns']),
         tokens_cols = lambda w:
             list(config[w.dataset]['tokensExtraction'].keys()),
         name = (lambda w: config[w.dataset]['peliasName']),
