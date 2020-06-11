@@ -23,26 +23,26 @@ def remove_whitespace(s):
     return s
 
 
-frame = pd.read_table(
+gbif = pd.read_table(
     snakemake.input[0], usecols=list(DTYPES.keys()), dtype=DTYPES)
 
-include_mask = frame.country.eq('Sweden')
+include_mask = gbif.country.eq('Sweden')
 
-if 'geodeticDatum' in frame.columns:
-    geodetic_datum = frame.geodeticDatum.str.lower().apply(remove_whitespace)
+if 'geodeticDatum' in gbif.columns:
+    geodetic_datum = gbif.geodeticDatum.str.lower().apply(remove_whitespace)
     include_mask = (
         include_mask &
         (geodetic_datum.isnull() | geodetic_datum.str.contains('wgs84')))
 else:
-    frame['geodeticDatum'] = np.nan
+    gbif['geodeticDatum'] = np.nan
 
-if 'coordinateUncertaintyInMeters' not in frame.columns:
-    frame['coordinateUncertaintyInMeters'] = np.nan
+if 'coordinateUncertaintyInMeters' not in gbif.columns:
+    gbif['coordinateUncertaintyInMeters'] = np.nan
 
-frame_filtered = (
-    frame[include_mask]
+gbif_filtered = (
+    gbif[include_mask]
     .dropna(subset=['decimalLatitude', 'decimalLongitude'])
     .drop_duplicates(DISTINCT_COLUMN_SET)
 )
 
-frame_filtered.to_csv(snakemake.output[0], sep='\t', index=False)
+gbif_filtered.to_csv(snakemake.output[0], sep='\t', index=False)

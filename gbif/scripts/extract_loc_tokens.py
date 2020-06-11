@@ -61,18 +61,18 @@ def tokens_to_strings(series, sep='', tail=None):
 # Load Darwin Core data
 source_columns = [v['source'] for _, v in CONFIG.items()]
 
-frame = pd.read_table(
+gbif = pd.read_table(
     snakemake.input[0], usecols=['occurrenceID'] + source_columns, dtype=str
 ).dropna(subset=source_columns, how='all')
 
-tokens_frame = pd.DataFrame({'occurrenceID': frame.occurrenceID})
+tokens_frame = pd.DataFrame({'occurrenceID': gbif.occurrenceID})
 
 for k, v in CONFIG.items():
 
     nlp = spacy.load(v['nerModelDir'])  # load NER model
     assert 'LOC' in nlp.entity.labels
 
-    tokens = get_location_tokens(frame[v['source']], nlp)
+    tokens = get_location_tokens(gbif[v['source']], nlp)
     tokens_frame[k] = tokens
     tokens_frame[k + 'StrLong'] = tokens_to_strings(
         tokens, sep=v['longStrSep'])
