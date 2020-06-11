@@ -56,14 +56,19 @@ Input files
 -----------
 
 Input files should be placed at the following locations:
-``./gbif/data/raw/{dataset}/occurrence.txt`` and ``./virtual-herbarium/data/raw/``.
+
+* ``./gbif/data/raw/{dataset}/occurrence.txt``
+* ``./virtual-herbarium/data/raw/``.
 
 
 Output files
 ------------
 
 After executing the workflows, you should be able to find the output
-files under ``./gbif/data/processed/`` and ``./virtual-herbarium/data/processed/``
+files in the following directories:
+
+* ``./gbif/data/processed/``
+* ``./virtual-herbarium/data/processed/``
 
 
 Running the workflows
@@ -77,7 +82,7 @@ command-line (adjust the number of CPU cores to fit your environment):
     snakemake --cores 4
 
 
-The file ``./gbif/config.yaml`` determines which datasets to include,
+The file ``./gbif/config.yaml`` determines which GBIF datasets to include,
 and how the included datasets are processed.
 
 Named Entity Recognition (NER) is used to extract place names from
