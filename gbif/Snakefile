@@ -80,7 +80,11 @@ rule prepare_pelias_csv:
     script: 'scripts/prepare_pelias_csv.py'
 
 
-rule combine_dataset_metadata:
+rule concatentate_dataset_metadata:
     input: expand('data/interim/datasets/{dataset}.tsv', dataset=config.keys())
     output: 'data/processed/datasets.tsv'
-    shell: 'cat data/interim/datasets/*.tsv > {output[0]}'
+    shell:
+        """
+        printf 'dataset\tdatasetKey\tversion\n' > {output[0]}
+        cat data/interim/datasets/*.tsv >> {output[0]}
+        """
