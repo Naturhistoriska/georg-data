@@ -7,8 +7,8 @@ s-fbo:  # name used for the dataset
     continent: str
     country: str
     countryCode: str
-    locality: str
     stateProvince: str
+    locality: str
     verbatimLocality: str
     higherGeography: str
     decimalLatitude: str  # required
@@ -23,7 +23,7 @@ s-fbo:  # name used for the dataset
   tokensExtraction:  # specifies location tokens extraction
     verbatimTokens:  # custom name to use for extracted tokens (must not be a Darwin Core field name)
         source: verbatimLocality  # Darwin Core source field for the tokens
-        nerModelDir: 'models/ner-model'  # directory with a spaCy NER model
+        nerModelDir: "models/ner-model"  # directory with a spaCy NER model
         longStrSep: ", "  # separator to use when concatenating all tokens in a string
         shortStrSep: ", " # separator to use when concatenating some of the tokens in a string
   peliasName: verbatimTokensStrLong  # Darwin Core field or concatenated tokens
@@ -39,8 +39,8 @@ nhrs-nrm:
     continent: str
     country: str
     countryCode: str
-    locality: str
     stateProvince: str
+    locality: str
     higherGeography: str
     decimalLatitude: str
     decimalLongitude: str
@@ -54,13 +54,14 @@ nhrs-nrm:
   tokensExtraction:
     verbatimTokens:
         source: occurrenceRemarks
-        nerModelDir: 'models/ner-model'
+        nerModelDir: "models/ner-model"
         longStrSep: ", "
         shortStrSep: ", "
     interpretedTokens:
         source: locality
-        nerModelDir: 'models/ner-model'
+        nerModelDir: "models/ner-model"
         longStrSep: ", "
         shortStrSep: ", "
   peliasName: locality
   locationDisplayLabel: interpretedTokensStrShort
+
