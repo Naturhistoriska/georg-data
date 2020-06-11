@@ -51,9 +51,9 @@ rule filter_sweden:
     input: 'data/raw/{dataset}/occurrence.txt'
     output: 'data/interim/filtered/{dataset}.tsv'
     params:
-        dtypes = (lambda w: config[w.dataset]['columns']),
+        dtypes = (lambda w: config[w.dataset]['gbif']['columns']),
         distinct_column_set = (
-            lambda w: config[w.dataset]['distinctColumnSet']),
+            lambda w: config[w.dataset]['gbif']['distinctColumnSet']),
     script: 'scripts/filter_sweden.py'
 
 
@@ -72,11 +72,11 @@ rule prepare_pelias_csv:
     output:
         'data/processed/{dataset}.csv'
     params:
-        gbif_dtypes = (lambda w: config[w.dataset]['columns']),
+        gbif_dtypes = (lambda w: config[w.dataset]['gbif']['columns']),
         tokens_cols = lambda w:
             list(config[w.dataset]['tokensExtraction'].keys()),
-        name = (lambda w: config[w.dataset]['peliasName']),
-        displayLabel = (lambda w: config[w.dataset]['locationDisplayLabel'])
+        georg_config = (lambda w: config[w.dataset]['georg']),
+        pelias_config = (lambda w: config[w.dataset]['pelias'])
     script: 'scripts/prepare_pelias_csv.py'
 
 

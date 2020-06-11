@@ -1,95 +1,117 @@
 s-fbo:  # name used for the dataset
-  columns:  # Darwin Core fields to include and corresponding pandas dtypes
-    institutionCode: str
-    collectionCode: str
-    catalogNumber: str
-    occurrenceID: str  # required
-    continent: str
-    country: str
-    countryCode: str
-    stateProvince: str
-    locality: str
-    verbatimLocality: str
-    higherGeography: str
-    decimalLatitude: str  # required
-    decimalLongitude: str  # required
-    # geodeticDatum: str
-    # coordinateUncertaintyInMeters: str
-  distinctColumnSet:  # drop duplicate records for the subset of these columns
-    - decimalLatitude
-    - decimalLongitude
-    - verbatimLocality
-    - locality
-  tokensExtraction:  # specifies location tokens extraction
-    verbatimTokens:  # custom name to use for extracted tokens (must not be a Darwin Core field name)
-        source: verbatimLocality  # Darwin Core source field for the tokens
-        nerModelDir: "models/ner-model"  # directory with a spaCy NER model
-        longStrSep: ", "  # separator to use when concatenating all tokens in a string
-        shortStrSep: ", " # separator to use when concatenating some of the tokens in a string
-  peliasName: verbatimTokensStrLong  # Darwin Core field or concatenated tokens
-  locationDisplayLabel: verbatimTokensStrShort # Darwin Core field or concatenated tokens
+    gbif:  # specifications for GBIF data
+        columns:  # GBIF fields to include and corresponding pandas dtypes
+            institutionCode: str
+            collectionCode: str
+            catalogNumber: str
+            occurrenceID: str  # required
+            continent: str
+            country: str
+            countryCode: str
+            stateProvince: str
+            locality: str
+            verbatimLocality: str
+            higherGeography: str
+            decimalLatitude: str  # required
+            decimalLongitude: str  # required
+            # geodeticDatum: str
+            # coordinateUncertaintyInMeters: str
+        distinctColumnSet:  # drop duplicate records for the subset of these columns
+            - decimalLatitude
+            - decimalLongitude
+            - verbatimLocality
+            - locality
+    tokensExtraction:  # specifies location tokens extraction
+        verbatimTokens:  # custom name to use for extracted tokens (must not be a GBIF field name)
+            source: verbatimLocality  # GBIF source field for the tokens
+            nerModelDir: "models/ner-model"  # directory with a spaCy NER model
+            longStrSep: ", "  # separator to use when concatenating all tokens in a string
+            shortStrSep: ", " # separator to use when concatenating some of the tokens in a string
+    georg:
+        locationDisplayLabel: verbatimTokensStrShort # GBIF field or concatenated tokens -- required
+        verbatimTokens: verbatimTokens  # optional field (you can add more than one!)
+    pelias:
+        name: verbatimTokensStrLong  # GBIF field or concatenated tokens -- required
+        lat: decimalLatitude  # required
+        lon: decimalLongitude  # required
+
 
 nhrs-nrm:
-  columns:
-    institutionCode: str
-    collectionCode: str
-    catalogNumber: str
-    occurrenceID: str
-    occurrenceRemarks: str
-    continent: str
-    country: str
-    countryCode: str
-    stateProvince: str
-    locality: str
-    higherGeography: str
-    decimalLatitude: str
-    decimalLongitude: str
-    geodeticDatum: str
-    coordinateUncertaintyInMeters: str
-  distinctColumnSet:
-    - decimalLatitude
-    - decimalLongitude
-    - locality
-    - occurrenceRemarks
-  tokensExtraction:
-    verbatimTokens:
-        source: occurrenceRemarks
-        nerModelDir: "models/ner-model"
-        longStrSep: ", "
-        shortStrSep: ", "
-    interpretedTokens:
-        source: locality
-        nerModelDir: "models/ner-model"
-        longStrSep: ", "
-        shortStrSep: ", "
-  peliasName: locality
-  locationDisplayLabel: interpretedTokensStrShort
+    gbif:
+        columns:
+            institutionCode: str
+            collectionCode: str
+            catalogNumber: str
+            occurrenceID: str
+            occurrenceRemarks: str
+            continent: str
+            country: str
+            countryCode: str
+            stateProvince: str
+            locality: str
+            higherGeography: str
+            decimalLatitude: str
+            decimalLongitude: str
+            geodeticDatum: str
+            coordinateUncertaintyInMeters: str
+        distinctColumnSet:
+            - decimalLatitude
+            - decimalLongitude
+            - locality
+            - occurrenceRemarks
+    tokensExtraction:
+        verbatimTokens:
+            source: occurrenceRemarks
+            nerModelDir: "models/ner-model"
+            longStrSep: ", "
+            shortStrSep: ", "
+        interpretedTokens:
+            source: locality
+            nerModelDir: "models/ner-model"
+            longStrSep: ", "
+            shortStrSep: ", "
+    georg:
+        locationDisplayLabel: interpretedTokensStrShort
+        interpretedTokens: interpretedTokens
+        verbatimTokens: verbatimTokens
+    pelias:
+        name: locality
+        lat: decimalLatitude
+        lon: decimalLongitude
+
 
 uppsala-botany:
-  columns:
-    institutionCode: str
-    collectionCode: str
-    catalogNumber: str
-    occurrenceID: str
-    continent: str
-    country: str
-    stateProvince: str
-    county: str
-    locality: str
-    decimalLatitude: str
-    decimalLongitude: str
-    # geodeticDatum: str
-    # coordinateUncertaintyInMeters: str
-  distinctColumnSet:
-    - decimalLatitude
-    - decimalLongitude
-    - locality
-  tokensExtraction:
-    interpretedTokens:
-      source: locality
-      nerModelDir: "models/ner-model"
-      longStrSep: ", " 
-      shortStrSep: ", "
-  peliasName: interpretedTokensStrLong
-  locationDisplayLabel: interpretedTokensStrShort
+    gbif:
+        columns:
+            institutionCode: str
+            collectionCode: str
+            catalogNumber: str
+            occurrenceID: str
+            continent: str
+            country: str
+            stateProvince: str
+            county: str
+            locality: str
+            decimalLatitude: str
+            decimalLongitude: str
+            # geodeticDatum: str
+            # coordinateUncertaintyInMeters: str
+        distinctColumnSet:
+            - decimalLatitude
+            - decimalLongitude
+            - locality
+    tokensExtraction:
+        interpretedTokens:
+            source: locality
+            nerModelDir: "models/ner-model"
+            longStrSep: ", " 
+            shortStrSep: ", "
+    georg:
+        locationDisplayLabel: interpretedTokensStrShort
+        interpretedTokens: interpretedTokens
+    pelias:
+        name: interpretedTokensStrLong
+        lat: decimalLatitude
+        lon: decimalLongitude
+
 
