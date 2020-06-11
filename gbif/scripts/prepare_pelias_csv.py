@@ -12,11 +12,16 @@ import pandas as pd
 
 from ast import literal_eval
 
-DISPLAY_LABEL_COL = snakemake.params.displayLabel
-NAME_COL = snakemake.params.name
-TOKENS_COLS = snakemake.params.tokens_cols
 
-required_columns = list(set([DISPLAY_LABEL_COL, NAME_COL]))
+TOKENS_COLS = snakemake.params.tokens_cols
+GEORG_CONFIG = snakemake.params.georg_config
+PELIAS_CONFIG = snakemake.params.pelias_config
+
+
+required_columns = list(set([
+    GEORG_CONFIG['locationDisplayLabel'],
+    PELIAS_CONFIG['name']]))
+
 
 converters = dict()
 all_tokens_cols = list()
@@ -39,27 +44,28 @@ merged = (
     gbif.merge(tokens_frame, how='left', on='occurrenceID')
     .dropna(subset=required_columns))
 
-# ADDENDUM JSON GEORG
-addendum_georg = merged[all_tokens_cols].copy()
-addendum_georg['locationDisplayLabel'] = merged[DISPLAY_LABEL_COL]
-
-addendum_json_georg = addendum_georg.apply(
-    lambda x: x.to_json(orient='columns', force_ascii=False), axis=1)
-
 # ADDENDUM JSON GBIF
 addendum_json_gbif = gbif.apply(
     lambda x: x.to_json(orient='columns', force_ascii=False), axis=1)
 
+# ADDENDUM JSON GEORG
+addendum_georg = pd.DataFrame(index=merged.index)
+for k, v in GEORG_CONFIG.items():
+    addendum_georg[k] = merged[v]
+addendum_json_georg = addendum_georg.apply(
+    lambda x: x.to_json(orient='columns', force_ascii=False), axis=1)
+
 # COMPOSE OUTPUT DATAFRAME
-pelias_frame = pd.DataFrame(index=merged.index)
-pelias_frame = pelias_frame.assign(
-    source='GBIF',
-    layer=snakemake.wildcards.dataset,
-    lat=merged.decimalLatitude,
-    lon=merged.decimalLongitude,
-    name=merged[NAME_COL],
-    addendum_json_gbif=addendum_json_gbif,
-    addendum_json_georg=addendum_json_georg,
-)
+pelias_frame = pd.DataFrame(
+    {
+        'source': 'GBIF',
+        'layer': snakemake.wildcards.dataset
+    }, index=merged.index)
+
+for k, v in PELIAS_CONFIG.items():
+    pelias_frame[k] = merged[v]
+
+pelias_frame['addendum_json_gbif'] = addendum_json_gbif
+pelias_frame['addendum_json_georg'] = addendum_json_georg
 
 pelias_frame.to_csv(snakemake.output[0], index=False)
