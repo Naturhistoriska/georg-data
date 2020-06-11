@@ -24,13 +24,9 @@ required_columns = list(set([
 
 
 converters = dict()
-all_tokens_cols = list()
 tokens_dtypes = dict()
 for c in TOKENS_COLS:
     converters[c] = literal_eval
-    all_tokens_cols.append(c)
-    all_tokens_cols.append(c + 'StrLong')
-    all_tokens_cols.append(c + 'StrShort')
     tokens_dtypes[c + 'StrLong'] = str
     tokens_dtypes[c + 'StrShort'] = str
 
