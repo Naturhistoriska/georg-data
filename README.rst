@@ -52,15 +52,15 @@ You can install the libraries with the following command:
 Input files
 -----------
 
-Input files should be placed at the following location:
-``./gbif/data/raw/{dataset}/occurrence.txt`` or ``./virtual-herbarium/data/raw/``.
+Input files should be placed at the following locations:
+``./gbif/data/raw/{dataset}/occurrence.txt`` and ``./virtual-herbarium/data/raw/``.
 
 
 Output files
 ------------
 
-After executing the workflow, you should be able to find the output
-files under ``./gbif/data/processed/`` or ``./virtual-herbarium/data/processed/``
+After executing the workflows, you should be able to find the output
+files under ``./gbif/data/processed/`` and ``./virtual-herbarium/data/processed/``
 
 
 Running the workflows
