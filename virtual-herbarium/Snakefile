@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
+import snakemake
+
+
+rule all:
+    input: 'data/processed/socknar.csv'
+
+
+rule prepare_socknar_pelias:
+    input: 'data/raw/socknar.tsv'
+    output: 'data/processed/socknar.csv'
+    script: 'scripts/prepare_socknar.py'
