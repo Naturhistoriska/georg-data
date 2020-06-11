@@ -54,7 +54,7 @@ addendum_json_gbif = dwc_frame.apply(
 pelias_frame = pd.DataFrame(index=frame.index)
 pelias_frame = pelias_frame.assign(
     source='GBIF',
-    layer=frame.institutionCode + ':' + frame.collectionCode,
+    layer=snakemake.wildcards.dataset,
     lat=frame.decimalLatitude,
     lon=frame.decimalLongitude,
     name=frame[NAME_COL],

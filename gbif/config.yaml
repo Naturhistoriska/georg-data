@@ -1,7 +1,7 @@
 s-fbo:  # name used for the dataset
   columns:  # Darwin Core fields to include and corresponding pandas dtypes
-    institutionCode: str  # required
-    collectionCode: str  # required
+    institutionCode: str
+    collectionCode: str
     catalogNumber: str
     occurrenceID: str  # required
     continent: str
