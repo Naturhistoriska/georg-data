@@ -65,3 +65,31 @@ nhrs-nrm:
   peliasName: locality
   locationDisplayLabel: interpretedTokensStrShort
 
+uppsala-botany:
+  columns:
+    institutionCode: str
+    collectionCode: str
+    catalogNumber: str
+    occurrenceID: str
+    continent: str
+    country: str
+    stateProvince: str
+    county: str
+    locality: str
+    decimalLatitude: str
+    decimalLongitude: str
+    # geodeticDatum: str
+    # coordinateUncertaintyInMeters: str
+  distinctColumnSet:
+    - decimalLatitude
+    - decimalLongitude
+    - locality
+  tokensExtraction:
+    interpretedTokens:
+      source: locality
+      nerModelDir: "models/ner-model"
+      longStrSep: ", " 
+      shortStrSep: ", "
+  peliasName: interpretedTokensStrLong
+  locationDisplayLabel: interpretedTokensStrShort
+

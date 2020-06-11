@@ -13,7 +13,7 @@ There are currently two different data pipelines: one for
 `Sweden's virtual herbarium <https://github.com/mossnisse/Virtuella-Herbariet>`_.
 
 For the GBIF workflow, we use Darwin Core archives obtained from
-`<http://gbif.se/ipt/>`_. For the time being, two occurrence datasets are
+`<http://gbif.se/ipt/>`_. For the time being, three occurrence datasets are
 downloaded and processed:
 
 :nhrs-nrm: GBIF-Sweden, Entomological Collections (NHRS),
@@ -22,6 +22,9 @@ downloaded and processed:
 
 :s-fbo: GBIF-Sweden, Phanerogamic Botanical Collections (S).
 	    DOI: |nbsp| `10.15468/yo3mmu <https://doi.org/10.15468/yo3mmu>`_
+
+:uppsala-botany: GBIF-Sweden, Botany (UPS). 
+		DOI: |nbsp| `10.15468/ufmslw <https://doi.org/10.15468/ufmslw>`_
 
 
 From Sweden's Virtual Herbarium we use one dataset for
