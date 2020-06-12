@@ -44,7 +44,7 @@ pelias_frame = pelias_frame.assign(
     lat=addendum_vh.Latitude,
     lon=addendum_vh.Longitude,
     name=addendum_vh.District,
-    addendum_json_vh=addendum_json_vh,
+    addendum_json_swedishVirtualHerbarium=addendum_json_vh,
     addendum_json_georg=addendum_json_georg
 )
 pelias_frame.to_csv(snakemake.output[0], index=False)
