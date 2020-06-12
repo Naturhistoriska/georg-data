@@ -33,11 +33,6 @@ if 'geodeticDatum' in gbif.columns:
     include_mask = (
         include_mask &
         (geodetic_datum.isnull() | geodetic_datum.str.contains('wgs84')))
-else:
-    gbif['geodeticDatum'] = np.nan
-
-if 'coordinateUncertaintyInMeters' not in gbif.columns:
-    gbif['coordinateUncertaintyInMeters'] = np.nan
 
 gbif_filtered = (
     gbif[include_mask]
