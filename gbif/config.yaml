@@ -32,8 +32,8 @@ s-fbo:  # name used for the dataset
         verbatimTokens: verbatimTokens  # optional field (you can add more than one!)
     pelias:
         name: verbatimTokensStrLong  # GBIF field or concatenated tokens -- required
-        lat: decimalLatitude  # required
-        lon: decimalLongitude  # required
+        lat: decimalLongitude  # required
+        lon: decimalLatitude  # required
 
 
 nhrs-nrm:
