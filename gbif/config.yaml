@@ -72,6 +72,7 @@ nhrs-nrm:
             shortStrSep: ", "
     georg:
         locationDisplayLabel: interpretedTokensStrShort
+        coordinateUncertaintyInMeters: coordinateUncertaintyInMeters
         interpretedTokens: interpretedTokens
         verbatimTokens: verbatimTokens
     pelias:
