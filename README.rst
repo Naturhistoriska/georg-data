@@ -57,8 +57,8 @@ Input files
 
 Input files should be placed at the following locations:
 
-* ``./gbif/data/raw/{dataset}/occurrence.txt``
-* ``./virtual-herbarium/data/raw/``.
+* ``./gbif/data/raw/{dataset}/occurrence.txt`` (GBIF data are downloaded automatically)
+* ``./virtual-herbarium/data/raw/``
 
 
 Output files
